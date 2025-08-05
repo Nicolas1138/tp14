@@ -1,0 +1,12 @@
+import javax.swing.*;
+
+public class Main {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Escáner de Red");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        NetworkScannerGUI gui = new NetworkScannerGUI();
+        frame.add(gui);
+        frame.setVisible(true);
+    }
+}

@@ -1,0 +1,70 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class NetworkScannerGUI extends JPanel {
+    private JTextField ipStartField;
+    private JTextField ipEndField;
+    private JButton scanButton;
+    private JButton clearButton;
+    private JTextArea resultArea;
+
+    public escaner() {
+        setLayout(new BorderLayout());
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridLayout(3, 2));
+
+        inputPanel.add(new JLabel("IP de inicio:"));
+        ipStartField = new JTextField(15);
+        inputPanel.add(ipStartField);
+
+        inputPanel.add(new JLabel("IP de fin:"));
+        ipEndField = new JTextField(15);
+        inputPanel.add(ipEndField);
+
+        scanButton = new JButton("Escanear");
+        inputPanel.add(scanButton);
+
+        clearButton = new JButton("Limpiar");
+        inputPanel.add(clearButton);
+
+        add(inputPanel, BorderLayout.NORTH);
+        resultArea = new JTextArea(10, 30);
+        resultArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(resultArea);
+        add(scrollPane, BorderLayout.CENTER);
+
+
+        scanButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startScanning();
+            }
+        });
+
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limpiar();
+            }
+        });
+    }
+
+    private void empezarEscaner() {
+        String ipStart = ipStartField.getText().trim();
+        String ipEnd = ipEndField.getText().trim();
+
+        if (validarIP(ipStart) && validarIP(ipEnd)) {
+            resultArea.append("Escaneando desde " + ipStart + " hasta " + ipEnd + "...\n");
+        } else {
+            resultArea.append("Error: IP inválida.\n");
+        }
+    }
+
+    private void limpiar() {
+        ipStartField.setText("");
+        ipEndField.setText("");
+        resultArea.setText("");
+    }
+}
